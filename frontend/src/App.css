@@ -1,0 +1,18 @@
+.FlexDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.slick-prev:before,
+.slick-next:before {
+  color: red!important;
+  position: relative !important;
+  bottom: 50px !important;
+}
+.containerDiv{
+    position: relative;
+    bottom: 100px;
+}
+.SliderData{
+    position: relative;
+    top: 50px;
+}

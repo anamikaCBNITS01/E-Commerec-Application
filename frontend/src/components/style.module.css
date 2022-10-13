@@ -1,0 +1,33 @@
+h3{
+    color: white !important;
+    margin-top: 50px !important;
+}
+.footer{
+    margin-top: 1rem;
+    /* padding: 1rem; */
+    background-color: #333333;
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+.flexBox{
+    display: flex;
+    color: white;
+    justify-content: space-evenly;
+}
+.copyright{
+    margin-top: 1rem;
+    /* padding: 1rem; */
+    background-color: #fcd68a;
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    height: 5vh;
+}
+.iconsName{
+    display: flex;
+    align-items: center;
+}
