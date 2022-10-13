@@ -9,12 +9,14 @@ import Slider from "./ImageSlider/ImageSlider";
 import SliderPage from "./ImageSlider/ImageSlider";
 import HomeSlider from "./LandingPageSlider";
 import Footer from "../components/footer";
+import TrendingProducts from "./TrendingProducts";
 
 const HomeScreen = () => {
 
   return (
     <>
       <SliderPage />
+      <TrendingProducts/>
       <HomeSlider />
       <Footer/>
     </>

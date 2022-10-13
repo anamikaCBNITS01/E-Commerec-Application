@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import ProductScreen from "./ProductScreen";
 import Loader from "../components/shared/Loader";
 import Message from "../components/shared/Message";
 import Slider from "./ImageSlider/ImageSlider";
 import SliderPage from "./ImageSlider/ImageSlider";
 import HomeSlider from "./LandingPageSlider";
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography ,Button} from "@mui/material";
+
+
 import { Link } from "react-router-dom";
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -75,7 +77,7 @@ const HomeScreen = () => {
                                                         </Link>
                                                     </Box>
                                                     <Divider variant="middle" />
-                                                    <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+                                                    <Box sx={{ mt: 3, ml: 1, mb: 1, display:"flex",justifyContent:"space-evenly" }}>
                                                         <Button variant='contained' sx={{ backgroundColor: "#27b9c1 !important" }}><Link to={`/product/${item._id}`} onClick={() => { localStorage.setItem("productID", item._id) }}>Show More...</Link></Button>
                                                     </Box>
                                                 </Box>

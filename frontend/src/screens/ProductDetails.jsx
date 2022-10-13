@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { listProductDetails } from "../actions/productActions";
 import {
   Row,
@@ -12,25 +12,56 @@ import {
   Container,
 } from "react-bootstrap";
 import { Chip,Button,Rating, Box } from "@mui/material";
-import './style.css/ProductDetail.css'
+import './style.css/ProductDetail.css';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { addToWishlist } from "../actions/wishlistAction";
 const ProductDetails = ({ history, match }) => {
   const [qty, setQty] = useState(1);
+  const [isFav,setIsFav]=useState(false);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const ids= useParams();
+
+  const productId = match.params.id;
+  // const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+  const [price,setPrice]=useState('')
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(addToWishlist(productId));
+    }
+  }, [dispatch, productId]);
+
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
+    dispatch(addToWishlist(match.params.id))
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
+
+  const addTowishListtHandler = (id) => {
+    dispatch(addToWishlist(id))
+    setIsFav(true)
+  };
+
+
   const GoBack=()=>{
     history.push('/');
     window.location.reload(true);
   }
+
+  const wishList = useSelector((state) => state.wishList);
+  const { wishlistItems } = wishList;
+  // console.log("wishlistItems productsDetails",product);
+  // console.log("wishlistItems product wishlist",wishlistItems);
+
+
   return (
     <Container>
       <Button onClick={GoBack} sx={{backgroundColor:"#343a40 !important", color:"white !important"}}>
@@ -85,7 +116,7 @@ const ProductDetails = ({ history, match }) => {
               </Row>
             </ListGroupItem>
           )}
-          <ListGroupItem>
+          <ListGroupItem style={{display:"flex"}}>
             <Button
               className="btn-block"
               type="button"
@@ -93,6 +124,7 @@ const ProductDetails = ({ history, match }) => {
             >
               Add to cart
             </Button>
+            <Button onClick={()=>addTowishListtHandler(product.id)}>{product._id? <FavoriteIcon sx={{color:"red", border:"px solid black"}}/>: <FavoriteBorderIcon sx={{color:"black"}}/>}</Button>
           </ListGroupItem>
         </Col>
       </Row>

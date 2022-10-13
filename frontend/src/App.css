@@ -1,18 +1,35 @@
-.FlexDiv{
+.FlexDiv {
     display: flex;
     justify-content: space-between;
 }
+
 .slick-prev:before,
 .slick-next:before {
-  color: red!important;
-  position: relative !important;
-  bottom: 50px !important;
+    color: red !important;
+    position: relative !important;
+    bottom: 50px !important;
 }
-.containerDiv{
+
+.containerDiv {
+    position: relative;
+    bottom: 100px;
+    margin-top: 50px;
+}
+
+.SliderData {
+    position: relative;
+    top: 50px;
+}
+
+.TrendingContainer {
     position: relative;
     bottom: 100px;
 }
-.SliderData{
-    position: relative;
-    top: 50px;
+
+.elipsisWrap {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    width: 217px;
 }

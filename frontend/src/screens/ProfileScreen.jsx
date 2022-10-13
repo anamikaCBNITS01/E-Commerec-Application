@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/shared/Message";
@@ -42,7 +42,7 @@ const TextFieldStyle = {
   marginTop: "20px"
 }
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ location }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -75,6 +75,7 @@ const ProfileScreen = ({ location, history }) => {
   const { loading: loadingOrders, orders, error: errorOrders } = orderListMy;
 
   const [toastopen, setToastOpen] = React.useState(false);
+  const history = useHistory();
 
   const handleClick = () => {
     setToastOpen(true);

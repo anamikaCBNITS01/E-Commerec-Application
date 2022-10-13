@@ -10,7 +10,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from "axios";
 import SearchScreen from "../screens/SearchScreen";
 import { SearchProducts } from "../actions/productActions";
-import { Button, Input, InputAdornment, TextField } from "@mui/material";
+import { Button, IconButton, Input, InputAdornment, TextField } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import Sidebar from "../screens/Sidebar";
+import SideBar from "../screens/Sidebar";
 
 
 const style = {
@@ -21,6 +24,13 @@ const style = {
 }
 
 const Header = ({ match }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClickOpen = () => {
+    setShowModal(true)
+  }
+
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const dispatch = useDispatch();
@@ -121,6 +131,9 @@ const Header = ({ match }) => {
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark" collapseOnSelect>
+        <div>
+            <div onClick={() => setShowModal(true)} style={{cursor:"pointer",color:"white"}}><MenuIcon /></div>
+        </div>
         <Container>
           <LinkContainer onClick={RedirectHome} to="/">
             <Navbar.Brand>Shopping Mart</Navbar.Brand>
@@ -147,7 +160,7 @@ const Header = ({ match }) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{paddingLeft:"5px"}} />
+                    <SearchIcon sx={{ paddingLeft: "5px" }} />
                   </InputAdornment>
                 ),
               }}
@@ -180,6 +193,8 @@ const Header = ({ match }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <SideBar open={showModal} onClose={()=>setShowModal(false)}/>
     </>
   );
 };

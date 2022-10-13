@@ -1,0 +1,46 @@
+.ItemWithIcon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    color: white;
+}
+.IconColor{
+    color: white !important;
+    text-decoration: none !important;
+    background-color: #333333;
+}
+/* .ItemWithIcon:hover{
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+} */
+.ButtonPopup{
+    background-color: #5e798a !important;
+    border: none !important;
+    color: white !important;
+}
+.ItemsND{
+    display: none;
+}
+.ItemsD{
+    display: inline;
+}
+.subMenu{
+    background-color: #333333 !important;
+}
+.menuItem{
+    background-color: #333333 !important;
+}
+.AccountClass{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+}
+.AccountListItem{
+    text-decoration: none;
+    list-style: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
