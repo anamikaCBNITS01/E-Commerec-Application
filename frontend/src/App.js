@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 import MyDetails from "./screens/MyDetails";
 import WishlistScreen from "./screens/WishlistScreen";
 import TrendingProducts from "./screens/TrendingProducts";
+import TrendingProductList from "./screens/TrendingProductList";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path="/product/:id" component={ProductDetails} />
           <Route path="/products" component={ProductList} />
           <Route path="/TrendingProducts" component={TrendingProducts} />
+          <Route path="/trending" component={TrendingProductList} />
           <Route path="/search/:key" component={SearchScreen} />
           <Route path="/" component={HomeScreen} exact />
           

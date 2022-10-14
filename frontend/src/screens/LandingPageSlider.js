@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
+import { listProductDetails, listProducts } from "../actions/productActions";
 import { Card, CardActions, CardContent, CardMedia, Divider, Grid, Typography, Button } from '@mui/material'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,8 +9,10 @@ import '../App.css'
 import { Box } from "@mui/system";
 import { Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { addToCart } from "../actions/cartAction";
 const HomeSlider = () => {
     const dispatch = useDispatch();
+    const [qty, setQty] = useState(1);
     const productList = useSelector((state) => state.productList);
     const { loading, error, products } = productList;
 
@@ -19,6 +21,16 @@ const HomeSlider = () => {
     useEffect(() => {
         dispatch(listProducts());
     }, [dispatch]);
+
+    const addToCartHandler = (id) => {
+        dispatch(addToCart(id))
+        navigate.push(`/cart/${id}?qty=${qty}`)
+    }
+
+    const productDetailsHandler = (id) => {
+        dispatch(listProductDetails(id))
+        navigate.push(`/product/${id}`)
+    }
 
     const settings = {
         dots: true,
@@ -58,8 +70,8 @@ const HomeSlider = () => {
     return (
         <Container className="containerDiv">
             <div className="FlexDiv">
-                <h1>Products</h1>
-                <Button onClick={() => navigate.push('/products')}>View All</Button>
+                <h1 style={{ letterSpacing: "1px" }}>Products</h1>
+                <Button variant="contained" sx={{backgroundColor:"#177787 !important"}} onClick={() => navigate.push('/products')}>View All</Button>
             </div>
             <Slider className="SliderData" {...settings}>
                 {products.map((product) => (
@@ -79,9 +91,22 @@ const HomeSlider = () => {
                             {product.name}
                         </Typography>
 
-                        <Typography gutterBottom variant="h6" component="div">
+                        <Typography sx={{ color: "green" }} gutterBottom variant="h6" component="div">
                             &#8377;{product.price}
                         </Typography>
+
+                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                            <Button
+                                variant="contained"
+                                sx={{ backgroundColor: "#6594b2 !important" }}
+                                onClick={()=>productDetailsHandler(product._id)}
+                            >Show More...</Button>
+                            <Button
+                                variant="contained"
+                                sx={{ backgroundColor: "#a5cc6d !important" }}
+                                onClick={()=>addToCartHandler(product._id)}
+                            >Add To Cart</Button>
+                        </Box>
 
                         {/* <Divider variant="middle" />
                         <Box sx={{ mt: 3, ml: 1, mb: 1 }}>

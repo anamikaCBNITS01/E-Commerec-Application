@@ -81,7 +81,8 @@ const WishlistScreen = ({ match, location, history }) => {
                         ></i>
                       </Button> */}
 
-                      <Button onClick={() => removeFromWishlistHandler(item.product)}><FavoriteIcon sx={{color:"red", border:"px solid black"}}/></Button>
+                      {/* <Button></Button> */}
+                      <Button fullWidth onClick={() => removeFromWishlistHandler(item.product)}> <FavoriteIcon sx={{color:"red", border:"px solid black"}}/>{' '}{' '} Remove </Button>
                       {/* <Button
                       type="button"
                         variant="light"

@@ -11,23 +11,35 @@ import {
   Form,
   Container,
 } from "react-bootstrap";
-import { Chip,Button,Rating, Box } from "@mui/material";
+import { Chip, Button, Rating, Box, Snackbar, Alert } from "@mui/material";
 import './style.css/ProductDetail.css';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { addToWishlist } from "../actions/wishlistAction";
+import { Stack } from "@mui/system";
 const ProductDetails = ({ history, match }) => {
   const [qty, setQty] = useState(1);
-  const [isFav,setIsFav]=useState(false);
+  const [isFav, setIsFav] = useState(false);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  const ids= useParams();
+  const ids = useParams();
 
   const productId = match.params.id;
   // const qty = location.search ? Number(location.search.split("=")[1]) : 1;
-  const [price,setPrice]=useState('')
+  const [price, setPrice] = useState('');
+
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (productId) {
@@ -47,11 +59,11 @@ const ProductDetails = ({ history, match }) => {
 
   const addTowishListtHandler = (id) => {
     dispatch(addToWishlist(id))
-    setIsFav(true)
+    setOpen(true)
   };
 
 
-  const GoBack=()=>{
+  const GoBack = () => {
     history.push('/');
     window.location.reload(true);
   }
@@ -64,32 +76,43 @@ const ProductDetails = ({ history, match }) => {
 
   return (
     <Container>
-      <Button onClick={GoBack} sx={{backgroundColor:"#343a40 !important", color:"white !important"}}>
+
+      {/* pop up messages */}
+
+      <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Product Added In Your Wishlist
+          </Alert>
+        </Snackbar>
+      </Stack>
+
+      <Button onClick={GoBack} sx={{ backgroundColor: "#343a40 !important", color: "white !important" }}>
         <i className="fas fa-arrow-left    "></i>
         &nbsp; GO BACK
       </Button>
 
       <Row>
-        <Col md={3}>
+        <Col md={2}>
           <Image src={product.image} alt={product.name} fluid />
         </Col>
         <Col md={6}>
           <ListGroup variant="flush">
             <ListGroupItem>
-              <h3 className="heading">{product.heading}</h3><Chip label={product.inStock?"in-stock":"out of stock"} color="success" />
+              <h3 style={{ letterSpacing: "1px" }} className="heading">{product.heading}</h3><Chip label={product.inStock ? "in-stock" : "out of stock"} color="success" />
             </ListGroupItem>
             <ListGroupItem><h4>{product.name}</h4></ListGroupItem>
             <ListGroupItem>
-            <div>{product.rating} Review</div>
-            <Box>
-            <Rating  name="half-rating" defaultValue={4} readOnly />
-            </Box>
+              <div>{product.rating} Review</div>
+              <Box>
+                <Rating name="half-rating" defaultValue={4} readOnly />
+              </Box>
             </ListGroupItem>
             <ListGroupItem>Price : &#8377;{product.price}</ListGroupItem>
             <ListGroupItem>{product.details}</ListGroupItem>
           </ListGroup>
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <ListGroupItem>
             <Row>
               <Col>Status :</Col>
@@ -116,15 +139,28 @@ const ProductDetails = ({ history, match }) => {
               </Row>
             </ListGroupItem>
           )}
-          <ListGroupItem style={{display:"flex"}}>
+          <ListGroupItem style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <Button
               className="btn-block"
               type="button"
               onClick={addToCartHandler}
+              variant="contained"
+              sx={{ backgroundColor: "#a5cc6d !important" }}
             >
               Add to cart
             </Button>
-            <Button onClick={()=>addTowishListtHandler(product.id)}>{product._id? <FavoriteIcon sx={{color:"red", border:"px solid black"}}/>: <FavoriteBorderIcon sx={{color:"black"}}/>}</Button>
+
+            {/* <Button onClick={()=>addTowishListtHandler(product.id)}>{product._id? <FavoriteIcon sx={{color:"red", border:"px solid black"}}/>: <FavoriteBorderIcon sx={{color:"black"}}/>}</Button> */}
+          </ListGroupItem>
+          <ListGroupItem>
+            <Button
+              className="btn-block"
+              sx={{ backgroundColor: "#ff3100 !important", color: "white" }}
+              onClick={() => addTowishListtHandler(product.id)}
+            >
+              Add To Wishlist
+
+            </Button>
           </ListGroupItem>
         </Col>
       </Row>
